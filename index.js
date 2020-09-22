@@ -60,17 +60,16 @@ async function msgHandler (client, message) {
           client.sendText(from, `Bismillah.. Halo *${pushname}*\n\nBerikut adalah menu yang bisa dipakai,\n\n*_/info surah <nama surah>_*\nMenampilkan informasi lengkap mengenai surah tertentu. Contoh penggunan: /info surah al-baqarah\n\n*_/surah <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /surah al-fatihah 1\n*_/surah <nama surah> <ayat> en_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /surah al-fatihah 1 en\n\n*_/tafsir <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia. Contoh penggunaan : /tafsir al-fatihah 1\n\n*_/audio <nama surah>_*\nMenampilkan tautan dari audio surah tertentu. Contoh penggunaan : /audio al-fatihah\n*_/audio <nama surah> <ayat>_*\nMengirim audio surah dan ayat tertentu. Contoh penggunaan : /audio al-fatihah 1\n\nCatatan: Perintah diawali dengan prefiks garing (/). Pastikan juga ketika mengetik nama surah menggunakan tanda hubung (-)\n`)
           break
         case '/info surah':
-          if (body.length > 11) {
+          if (body.length > 12) {
             const response = await axios.get('https://api.quran.sutanlab.id/surah')
             const { data } = response.data
             var idx = data.findIndex(function(post, index) {
-              if((post.name.transliteration.id.toLowerCase() == args[1].toLowerCase())||(post.name.transliteration.en.toLowerCase() == args[1].toLowerCase()))
+              if((post.name.transliteration.id.toLowerCase() == args[2].toLowerCase())||(post.name.transliteration.en.toLowerCase() == args[2].toLowerCase()))
                 return true;
             });
             var pesan = ""
-            console.log(idx)
-            //pesan = pesan + "Nama : "+ data[idx].name.transliteration.id + "\n" + "Asma : " +data[idx].name.short+"\n"+"Arti : "+data[idx].name.translation.id+"\n"+"Jumlah ayat : "+data[idx].numberOfVerses+"\n"+"Nomor surah : "+data[idx].number+"\n"+"Jenis : "+data[idx].revelation.id+"\n"+"Keterangan : "+data[idx].tafsir.id
-            //client.sendText(from, pesan)
+            pesan = pesan + "Nama : "+ data[idx].name.transliteration.id + "\n" + "Asma : " +data[idx].name.short+"\n"+"Arti : "+data[idx].name.translation.id+"\n"+"Jumlah ayat : "+data[idx].numberOfVerses+"\n"+"Nomor surah : "+data[idx].number+"\n"+"Jenis : "+data[idx].revelation.id+"\n"+"Keterangan : "+data[idx].tafsir.id
+            client.sendText(from, pesan)
         }
           break
         case '/surah':
