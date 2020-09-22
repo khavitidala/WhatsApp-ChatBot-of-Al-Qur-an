@@ -15,7 +15,7 @@ Pastikan sudah terinstal NodeJs v12.
 
 ### Klon dulu projeknya
 ```bash
-> git clone https://github.com/khavitidala/totsuka.git
+> git clone https://github.com/khavitidala/WhatsApp-ChatBot-of-Al-Qur-an.git
 ```
 ### Install dulu dependensi yang dibutuhkan
 Pastikan ada di folder tempat kamu klonkan.
