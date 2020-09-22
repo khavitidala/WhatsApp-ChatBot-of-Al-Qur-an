@@ -1,0 +1,15 @@
+{
+    "main": "index.js",
+    "engines": {
+        "node": ">=12.18.3"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "node-fetch": "^2.6.1",
+        "moment": "^2.27.0",
+        "@open-wa/wa-automate": "^2.0.23"
+    }
+}
