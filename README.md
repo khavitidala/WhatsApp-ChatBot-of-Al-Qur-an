@@ -13,7 +13,14 @@ Untuk saat ini fitur yang terdapat dalam bot ini adalah:
 7) Menampilkan random ayat
 
 ## Cara Instalasi
-Pastikan sudah terinstal NodeJs v12.
+## Pastikan sudah terinstal NodeJs v12.
+```bash
+sudo apt update -y
+sudo apt upgrade -y
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt install nodejs -y
+sudo apt install git
+```
 
 ### Klon dulu projeknya
 ```bash
@@ -34,6 +41,13 @@ Pastikan ada di folder tempat kamu klonkan.
 
 ### Troubleshooting
 https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
+
+### Fix Error On Linux
+```bash
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+dpkg -i google-chrome-stable_current_amd64.deb
+```
+
 
 ### Ucapan Terima Kasih yang Tak terhingga kepada
 1. Open-Wa : https://github.com/open-wa/wa-automate-nodejs.git
