@@ -180,26 +180,38 @@ async function msgHandler (client, message) {
         case '/jadwal':
           if(body.length > 8) {
             if(args.length >= 2) {
-              if(!(args[1] == "kota")) {
-                const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[1].toLowerCase())
-                const { kota } = response.data
-                if(kota[0].nama.toLowerCase() == args[1].toLowerCase()) {
-                  lokasi = kota[0].id
-                  namalokasi = kota[0].nama
-                } else {
-                  lokasi = kota[1].id
-                  namalokasi = kota[1].nama
-                }
-                
-              } else if(args.length > 2) {
+              if((args[1] == "kota")) {
                 const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[2].toLowerCase())
                 const { kota } = response.data
-                if(kota[0].nama.toLowerCase() == "kota "+args[2].toLowerCase()) {
-                  lokasi = kota[0].id
-                  namalokasi = kota[0].nama
-                } else {
-                  lokasi = kota[1].id
-                  namalokasi = kota[1].nama
+                var idx = kota.findIndex(function(post, index) {
+                  post = post.toLowerCase()
+                  if(post.nama.includes("kota"))
+                    return true;
+                });
+                if(idx != -1) {
+                  lokasi = kota[idx].id
+                  namalokasi = kota[idx].nama
+                }
+              } else {
+                kotanya = ""
+                for (let index = 1; index < args.length; index++) {
+                  if(index < args.length - 1) {
+                    kotanya = kotanya + args[index] + "+"
+                  } else {
+                    kotanya = kotanya + args[index]
+                  }
+                }
+                kotanya = kotanya.toLowerCase()
+                const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+kotanya)
+                const { kota } = response.data
+                var idx = kota.findIndex(function(post, index) {
+                  post = post.toLowerCase()
+                  if(post.nama.toLowerCase() == kotanya)
+                    return true;
+                });
+                if(idx != -1) {
+                  lokasi = kota[idx].id
+                  namalokasi = kota[idx].nama
                 }
               }
               timestamp = Date.now();
