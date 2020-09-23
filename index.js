@@ -179,12 +179,20 @@ async function msgHandler (client, message) {
           break
         case '/jadwal':
           if(body.length > 8) {
+            kotanya = ""
             if(args.length >= 2) {
               if((args[1] == "kota")) {
-                const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[2].toLowerCase())
+                for (let index = 2; index < args.length; index++) {
+                  if(index < args.length - 1) {
+                    kotanya = kotanya + args[index] + "+"
+                  } else {
+                    kotanya = kotanya + args[index]
+                  }
+                }
+                const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+kotanya)
                 const { kota } = response.data
                 var idx = kota.findIndex(function(post, index) {
-                  if(post.nama.includes("KOTA"))
+                  if(post.nama.toLowerCase() == "kota"+" "+kotanya)
                     return true;
                 });
                 if(idx != -1) {
@@ -192,7 +200,6 @@ async function msgHandler (client, message) {
                   namalokasi = kota[idx].nama
                 }
               } else {
-                kotanya = ""
                 for (let index = 1; index < args.length; index++) {
                   if(index < args.length - 1) {
                     kotanya = kotanya + args[index] + "+"
