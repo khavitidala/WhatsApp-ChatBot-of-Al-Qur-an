@@ -10,6 +10,7 @@ Untuk saat ini fitur yang terdapat dalam bot ini adalah:
 5) Menampilkan tautan dari audio surah tertentu. 
 6) Mengirim audio surah dan ayat tertentu.
 7) Menampilkan jadwal shalat
+7) Menampilkan random ayat
 
 ## Cara Instalasi
 Pastikan sudah terinstal NodeJs v12.
