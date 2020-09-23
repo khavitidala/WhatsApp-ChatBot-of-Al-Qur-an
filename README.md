@@ -3,7 +3,7 @@ Ini merupakan ChatBot yang merespons keyword tertentu pada platform WhatsApp. Bo
 
 ## Why not forked?
 Sebenarnya saya telah fork repo https://github.com/SomnathDas/Whatsapp-Botto-Re.git untuk bot yang saya buat, namanya TotsukaBot, jadi saya tidak bisa fork lebih dari satu kali.
-Untuk saat ini fitur yang terdapat dalam bot ini adalah:
+Untuk saat ini, fitur yang terdapat dalam bot ini adalah:
 1) Menampilkan informasi lengkap mengenai surah tertentu. 
 2) Menampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Indonesia. 
 3) Menampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. 4) Menampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia.
