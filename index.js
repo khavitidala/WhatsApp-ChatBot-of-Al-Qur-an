@@ -184,8 +184,7 @@ async function msgHandler (client, message) {
                 const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[2].toLowerCase())
                 const { kota } = response.data
                 var idx = kota.findIndex(function(post, index) {
-                  post = post.toLowerCase()
-                  if(post.nama.includes("kota"))
+                  if(post.nama.includes("KOTA"))
                     return true;
                 });
                 if(idx != -1) {
