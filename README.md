@@ -9,6 +9,7 @@ Untuk saat ini fitur yang terdapat dalam bot ini adalah:
 3) Menampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. 4) Menampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia.
 5) Menampilkan tautan dari audio surah tertentu. 
 6) Mengirim audio surah dan ayat tertentu.
+7) Menampilkan jadwal shalat
 
 ## Cara Instalasi
 Pastikan sudah terinstal NodeJs v12.
