@@ -195,10 +195,8 @@ async function msgHandler (client, message) {
                   if(post.nama.toLowerCase() == "kota"+" "+kotanya)
                     return true;
                 });
-                if(idx != -1) {
-                  lokasi = kota[idx].id
-                  namalokasi = kota[idx].nama
-                }
+                lokasi = kota[idx].id
+                namalokasi = kota[idx].nama
               } else {
                 for (let index = 1; index < args.length; index++) {
                   if(index < args.length - 1) {
@@ -214,10 +212,8 @@ async function msgHandler (client, message) {
                   if(post.nama.toLowerCase() == kotanya)
                     return true;
                 });
-                if(idx != -1) {
-                  lokasi = kota[idx].id
-                  namalokasi = kota[idx].nama
-                }
+                lokasi = kota[idx].id
+                namalokasi = kota[idx].nama
               }
               timestamp = Date.now();
               date_ob = new Date(timestamp);
