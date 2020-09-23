@@ -205,7 +205,6 @@ async function msgHandler (client, message) {
                 const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+kotanya)
                 const { kota } = response.data
                 var idx = kota.findIndex(function(post, index) {
-                  post = post.toLowerCase()
                   if(post.nama.toLowerCase() == kotanya)
                     return true;
                 });
