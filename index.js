@@ -183,7 +183,7 @@ async function msgHandler (client, message) {
               if(!(args[1] == "kota")) {
                 const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[1].toLowerCase())
                 const { kota } = response.data
-                if(kota[0].nama.toLowerCase() == args[1]) {
+                if(kota[0].nama.toLowerCase() == args[1].toLowerCase()) {
                   lokasi = kota[0].id
                   namalokasi = kota[0].nama
                 } else {
@@ -194,7 +194,7 @@ async function msgHandler (client, message) {
               } else if(args.length > 2) {
                 const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[2].toLowerCase())
                 const { kota } = response.data
-                if(kota[0].nama.toLowerCase() == "kota "+args[2]) {
+                if(kota[0].nama.toLowerCase() == "kota "+args[2].toLowerCase()) {
                   lokasi = kota[0].id
                   namalokasi = kota[0].nama
                 } else {
