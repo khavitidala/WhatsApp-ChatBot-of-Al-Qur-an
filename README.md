@@ -40,3 +40,4 @@ https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
 3. Quran-api by sutanlab : https://github.com/sutanlab/quran-api
 4. Al-Qur'an ID API by bachors : https://github.com/bachors/Al-Quran-ID-API
 5. QuranJSON by penggguna : https://github.com/penggguna/QuranJSON
+6. API Fatimah Bot : https://api.banghasan.com/

@@ -46,7 +46,7 @@ async function msgHandler (client, message) {
     const { pushname } = sender
     const { formattedTitle } = chat
     const time = moment(t * 1000).format('DD/MM HH:mm:ss')
-    const commands = ['/info surah', '/surah', '/tafsir', '/audio', '/menu', '/jadwal']
+    const commands = ['/info surah', '/surah', '/tafsir', '/audio', '/menu', '/jadwal', '/random ayat', 'assalamualaikum', 'aslmalaikum', 'asalamualaikum']
     const cmds = commands.map(x => x + '\\b').join('|')
     const cmd = type === 'chat' ? body.match(new RegExp(cmds, 'gi')) : type === 'image' && caption ? caption.match(new RegExp(cmds, 'gi')) : ''
 
@@ -57,7 +57,7 @@ async function msgHandler (client, message) {
       switch (cmd[0].toLowerCase()) {
         case '/menu':
         case '/help':
-          client.sendText(from, `Bismillah.. Halo *${pushname}*\n\nBerikut adalah menu yang bisa dipakai,\n\n*_/info surah <nama surah>_*\nMenampilkan informasi lengkap mengenai surah tertentu. Contoh penggunan: /info surah al-baqarah\n\n*_/surah <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /surah al-fatihah 1\n*_/surah <nama surah> <ayat> en_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /surah al-fatihah 1 en\n\n*_/tafsir <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia. Contoh penggunaan : /tafsir al-fatihah 1\n\n*_/audio <nama surah>_*\nMenampilkan tautan dari audio surah tertentu. Contoh penggunaan : /audio al-fatihah\n*_/audio <nama surah> <ayat>_*\nMengirim audio surah dan ayat tertentu. Contoh penggunaan : /audio al-fatihah 1\n\nCatatan: Perintah diawali dengan prefiks garing (/). Pastikan juga ketika mengetik nama surah menggunakan tanda hubung (-)\n`)
+          client.sendText(from, `Bismillah.. Halo *${pushname}*\n\nBerikut adalah menu yang bisa dipakai,\n\n*_/info surah <nama surah>_*\nMenampilkan informasi lengkap mengenai surah tertentu. Contoh penggunan: /info surah al-baqarah\n\n*_/surah <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /surah al-fatihah 1\n*_/surah <nama surah> <ayat> en_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /surah al-fatihah 1 en\n\n*_/tafsir <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia. Contoh penggunaan : /tafsir al-fatihah 1\n\n*_/audio <nama surah>_*\nMenampilkan tautan dari audio surah tertentu. Contoh penggunaan : /audio al-fatihah\n*_/audio <nama surah> <ayat>_*\nMengirim audio surah dan ayat tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /audio al-fatihah 1\n*_/audio <nama surah> <ayat> en_*\nMengirim audio surah dan ayat tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /audio al-fatihah 1 en\n\n*_/jadwal <kota(jika termasuk kota)> <nama kab/kota> <waktu/tanggal DD-M-YYYY(optional)>_*\nMenampilkan jadwal shalat untuk daerah harian tertentu dalam waktu tertentu. Contoh penggunaan:\nJika ingin menampilkan jadwal shalat di Kabupaten Tasikmalaya hari ini cukup ketik /jadwal tasikmalaya\nJika ingin menampilkan jadwal shalat di Kota Tasikmalaya hari ini cukup ketik /jadwal kota tasikmalaya\nJika ingin menambahkan keterangan waktu di akhir ketikkan tanggal-bulan-tahun, contoh: /jadwal tasikmalaya 23-9-2020\n\n*_/random ayat_*\nMenampilkan ayat tertentu secara random beserta terjemahannya dalam bahasa Indonesia.\n*_/random ayat en_*\nMenampilkan ayat tertentu secara random beserta terjemahannya dalam bahasa Inggris. \n\nCatatan: Perintah diawali dengan prefiks garing (/). Pastikan juga ketika mengetik nama surah menggunakan tanda hubung (-)\n`)
           break
         case '/info surah':
           if (body.length > 12) {
@@ -123,7 +123,7 @@ async function msgHandler (client, message) {
         }
           break
         case '/audio':
-          ayat = ""
+          ayat = "ayat"
           bhs = ""
           if (body.length > 6) {
             const response = await axios.get('https://api.quran.sutanlab.id/surah')
@@ -134,14 +134,19 @@ async function msgHandler (client, message) {
             });
             nmr = surah.data[idx].number
             if(!isNaN(nmr)) {
-              if (args.length > 2) {
+              if(args.length > 3) {
                 ayat = args[2]
-              } 
-              if (args.length > 3) {
-                bhs = args[3]
               }
+              if (args.length == 3) {
+                var last = function last(array, n) {
+                  if (array == null) return void 0;
+                  if (n == null) return array[array.length - 1];
+                  return array.slice(Math.max(array.length - n, 0));
+                };
+                ayat = last(args)
+              } 
               pesan = ""
-              if(!isNaN(ayat)) {
+              if(isNaN(ayat)) {
                 const responsi2 = await axios.get('https://raw.githubusercontent.com/penggguna/QuranJSON/master/surah/'+nmr+'.json')
                 const {name, name_translations, number_of_ayah, number_of_surah,  recitations} = responsi2.data
                 pesan = pesan + "Audio Quran Surah ke-"+number_of_surah+" "+name+" ("+name_translations.ar+") "+ "dengan jumlah "+ number_of_ayah+" ayat\n"
@@ -150,7 +155,7 @@ async function msgHandler (client, message) {
                 pesan = pesan + "Dilantunkan oleh "+recitations[2].name+" : "+recitations[2].audio_url+"\n"
                 client.sendText(from, pesan)
               } else {
-                const responsi2 = await axios.get('https://api.quran.sutanlab.id/surah/'+nmr+"/"+args[2])
+                const responsi2 = await axios.get('https://api.quran.sutanlab.id/surah/'+nmr+"/"+ayat)
                 const {data} = responsi2.data
                 var last = function last(array, n) {
                   if (array == null) return void 0;
@@ -231,6 +236,39 @@ async function msgHandler (client, message) {
             }
             
           }
+          break
+        case '/random ayat':
+          if (body.length > 6) {
+            const response = await axios.get('https://api.quran.sutanlab.id/surah')
+            const { data } = response.data
+            nmr = Math.floor(Math.random() * 115);
+            maks = data[nmr-1].numberOfVerses
+            ayat = Math.floor(Math.random() * maks) + 1;
+            if(!isNaN(nmr)) {
+              const responsi2 = await axios.get('https://api.quran.sutanlab.id/surah/'+nmr+"/"+ayat)
+              const {data} = responsi2.data
+              var last = function last(array, n) {
+                if (array == null) return void 0;
+                if (n == null) return array[array.length - 1];
+                return array.slice(Math.max(array.length - n, 0));
+              };
+              bhs = last(args)
+              pesan = ""
+              pesan = pesan + data.text.arab + "\n\n"
+              if(bhs == "en") {
+                pesan = pesan + data.translation.en
+              } else {
+                pesan = pesan + data.translation.id
+              }
+              pesan = pesan + "\n\n(Q.S. "+data.surah.name.transliteration.id+":"+ayat+")"
+              client.sendText(from, pesan)
+            }
+          }
+          break
+          case 'assalamualaikum':
+          case 'aslmalaikum': 
+          case 'asalamualaikum':
+            client.sendText(from, "Waalaikumussalam Warahmatullahi Wabarakatuh")
           break
         }
     } else {
