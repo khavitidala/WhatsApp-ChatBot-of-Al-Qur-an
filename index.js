@@ -46,7 +46,7 @@ async function msgHandler (client, message) {
     const { pushname } = sender
     const { formattedTitle } = chat
     const time = moment(t * 1000).format('DD/MM HH:mm:ss')
-    const commands = ['/info surah', '/surah', '/tafsir', '/audio', '/menu']
+    const commands = ['/info surah', '/surah', '/tafsir', '/audio', '/menu', '/jadwal']
     const cmds = commands.map(x => x + '\\b').join('|')
     const cmd = type === 'chat' ? body.match(new RegExp(cmds, 'gi')) : type === 'image' && caption ? caption.match(new RegExp(cmds, 'gi')) : ''
 
@@ -170,6 +170,66 @@ async function msgHandler (client, message) {
                 await client.sendText(from, pesan)
               }
           }
+          }
+          break
+        case '/jadwal':
+          if(body.length > 8) {
+            if(args.length >= 2) {
+              if(!(args[1] == "kota")) {
+                const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[1].toLowerCase())
+                const { kota } = response.data
+                if(kota[0].nama.toLowerCase() == args[1]) {
+                  lokasi = kota[0].id
+                  namalokasi = kota[0].nama
+                } else {
+                  lokasi = kota[1].id
+                  namalokasi = kota[1].nama
+                }
+                
+              } else if(args.length > 2) {
+                const response = await axios.get('https://api.banghasan.com/sholat/format/json/kota/nama/'+args[2].toLowerCase())
+                const { kota } = response.data
+                if(kota[0].nama.toLowerCase() == "kota "+args[2]) {
+                  lokasi = kota[0].id
+                  namalokasi = kota[0].nama
+                } else {
+                  lokasi = kota[1].id
+                  namalokasi = kota[1].nama
+                }
+              }
+              timestamp = Date.now();
+              date_ob = new Date(timestamp);
+              date = date_ob.getDate();
+              month = date_ob.getMonth() + 1;
+              year = date_ob.getFullYear();
+              var last = function last(array, n) {
+                if (array == null) return void 0;
+                if (n == null) return array[array.length - 1];
+                return array.slice(Math.max(array.length - n, 0));
+              };
+              waktu = last(args)
+              if((waktu == "besok" || waktu == "enjing") || (waktu == "isuk" || waktu == "isukan")) {
+                date = parseInt(date) + 1
+              } else if((waktu == "kemarin" || waktu == "kemaren") || waktu == "kamari") {
+                date = parseInt(date) - 1
+              } else if(waktu.includes('-')) {
+                waktu = waktu.trim().split('-')
+                date = waktu[0]
+                month = waktu[1]
+                year = waktu[2]
+              }
+              if(month < 10 ) {
+                month = "0" + String(month)
+              }
+              if(date < 10 ) {
+                date = "0" + String(date)
+              }
+              const respons = await axios.get('https://api.banghasan.com/sholat/format/json/jadwal/kota/'+lokasi+'/tanggal/'+year+'-'+month+'-'+date)
+              const { jadwal } = respons.data
+              pesan = "Jadwal Shalat " + namalokasi +"\n"+"Tanggal : "+jadwal.data.tanggal+"\n"+"imsak : "+jadwal.data.imsak+"\n"+"terbit : "+jadwal.data.terbit+"\n"+"subuh : "+jadwal.data.subuh+"\n"+"dhuha : "+jadwal.data.dhuha+"\n"+"dzuhur : "+jadwal.data.dzuhur+"\n"+"ashar : "+jadwal.data.ashar+"\n"+"maghrib : "+jadwal.data.maghrib+"\n"+"isya : "+jadwal.data.isya+"\n"
+              await client.sendText(from, pesan)
+            }
+            
           }
           break
         }
