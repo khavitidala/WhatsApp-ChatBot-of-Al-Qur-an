@@ -180,6 +180,12 @@ async function msgHandler (client, message) {
         case '/jadwal':
           if(body.length > 8) {
             kotanya = ""
+            var last = function last(array, n) {
+              if (array == null) return void 0;
+              if (n == null) return array[array.length - 1];
+              return array.slice(Math.max(array.length - n, 0));
+            };
+            waktu = last(args)
             if(args.length >= 2) {
               if((args[1] == "kota")) {
                 for (let index = 2; index < args.length; index++) {
@@ -198,11 +204,21 @@ async function msgHandler (client, message) {
                 lokasi = kota[idx].id
                 namalokasi = kota[idx].nama
               } else {
-                for (let index = 1; index < args.length; index++) {
-                  if(index < args.length - 1) {
-                    kotanya = kotanya + args[index] + "+"
-                  } else {
-                    kotanya = kotanya + args[index]
+                if((waktu == "besok" || waktu == "enjing") || (waktu == "isuk" || waktu == "isukan") || (waktu == "kemarin" || waktu == "kemaren") || (waktu.includes('-') || waktu == "kamari")) {
+                  for (let index = 1; index < args.length-1; index++) {
+                    if(index < args.length - 1) {
+                      kotanya = kotanya + args[index] + "+"
+                    } else {
+                      kotanya = kotanya + args[index]
+                    }
+                  }
+                } else {
+                  for (let index = 1; index < args.length; index++) {
+                    if(index < args.length - 1) {
+                      kotanya = kotanya + args[index] + "+"
+                    } else {
+                      kotanya = kotanya + args[index]
+                    }
                   }
                 }
                 kotanya = kotanya.toLowerCase()
