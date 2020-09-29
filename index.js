@@ -206,7 +206,7 @@ async function msgHandler (client, message) {
               } else {
                 if((waktu == "besok" || waktu == "enjing") || (waktu == "isuk" || waktu == "isukan") || (waktu == "kemarin" || waktu == "kemaren") || (waktu.includes('-') || waktu == "kamari")) {
                   for (let index = 1; index < args.length-1; index++) {
-                    if(index < args.length - 1) {
+                    if(index < args.length - 2) {
                       kotanya = kotanya + args[index] + "+"
                     } else {
                       kotanya = kotanya + args[index]
