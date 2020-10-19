@@ -57,7 +57,7 @@ async function msgHandler (client, message) {
       switch (cmd[0].toLowerCase()) {
         case '/menu':
         case '/help':
-          client.sendText(from, `Bismillah.. Halo *${pushname}*\n\nBerikut adalah menu yang bisa dipakai,\n\n*_/info surah <nama surah>_*\nMenampilkan informasi lengkap mengenai surah tertentu. Contoh penggunan: /info surah al-baqarah\n\n*_/surah <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /surah al-fatihah 1\n*_/surah <nama surah> <ayat> en_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /surah al-fatihah 1 en\n\n*_/tafsir <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia. Contoh penggunaan : /tafsir al-fatihah 1\n\n*_/audio <nama surah>_*\nMenampilkan tautan dari audio surah tertentu. Contoh penggunaan : /audio al-fatihah\n*_/audio <nama surah> <ayat>_*\nMengirim audio surah dan ayat tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /audio al-fatihah 1\n*_/audio <nama surah> <ayat> en_*\nMengirim audio surah dan ayat tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /audio al-fatihah 1 en\n\n*_/jadwal <kota(jika termasuk kota)> <nama kab/kota> <waktu/tanggal DD-M-YYYY(optional)>_*\nMenampilkan jadwal shalat untuk daerah harian tertentu dalam waktu tertentu. Contoh penggunaan:\nJika ingin menampilkan jadwal shalat di Kabupaten Tasikmalaya hari ini cukup ketik /jadwal tasikmalaya\nJika ingin menampilkan jadwal shalat di Kota Tasikmalaya hari ini cukup ketik /jadwal kota tasikmalaya\nJika ingin menambahkan keterangan waktu di akhir ketikkan tanggal-bulan-tahun, contoh: /jadwal tasikmalaya 23-9-2020\n\n*_/random ayat_*\nMenampilkan ayat tertentu secara random beserta terjemahannya dalam bahasa Indonesia.\n*_/random ayat en_*\nMenampilkan ayat tertentu secara random beserta terjemahannya dalam bahasa Inggris. \n\nCatatan: Perintah diawali dengan prefiks garing (/). Pastikan juga ketika mengetik nama surah menggunakan tanda hubung (-)\n`)
+          client.sendText(from, `Bismillah.. Halo *${pushname}*\n\nBerikut adalah menu yang bisa dipakai,\n\n*_/info surah <nama surah>_*\nMenampilkan informasi lengkap mengenai surah tertentu. Contoh penggunan: /info surah al-baqarah\n\n*_/surah <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /surah al-fatihah 1\n*_/surah <nama surah> <ayat> en_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /surah al-fatihah 1 en\n\n*_/tafsir <nama surah> <ayat>_*\nMenampilkan ayat Al-Qur'an tertentu beserta terjemahan dan tafsirnya dalam bahasa Indonesia. Contoh penggunaan : /tafsir al-fatihah 1\n\n*_/audio <nama surah>_*\nMenampilkan tautan dari audio surah tertentu. Contoh penggunaan : /audio al-fatihah\n*_/audio <nama surah> <ayat>_*\nMengirim audio surah dan ayat tertentu beserta terjemahannya dalam bahasa Indonesia. Contoh penggunaan : /audio al-fatihah 1\n*_/audio <nama surah> <ayat> en_*\nMengirim audio surah dan ayat tertentu beserta terjemahannya dalam bahasa Inggris. Contoh penggunaan : /audio al-fatihah 1 en\n\n*_/jadwal <kota(jika termasuk kota)> <nama kab/kota> <waktu/tanggal DD-M-YYYY(optional)> [Fitur ini tidak bisa digunakan untuk sementara]_*\nMenampilkan jadwal shalat untuk daerah harian tertentu dalam waktu tertentu. Contoh penggunaan:\nJika ingin menampilkan jadwal shalat di Kabupaten Tasikmalaya hari ini cukup ketik /jadwal tasikmalaya\nJika ingin menampilkan jadwal shalat di Kota Tasikmalaya hari ini cukup ketik /jadwal kota tasikmalaya\nJika ingin menambahkan keterangan waktu di akhir ketikkan tanggal-bulan-tahun, contoh: /jadwal tasikmalaya 23-9-2020\n\n*_/random ayat_*\nMenampilkan ayat tertentu secara random beserta terjemahannya dalam bahasa Indonesia.\n*_/random ayat en_*\nMenampilkan ayat tertentu secara random beserta terjemahannya dalam bahasa Inggris. \n\nCatatan: Perintah diawali dengan prefiks garing (/). Pastikan juga ketika mengetik nama surah menggunakan tanda hubung (-)\n`)
           break
         case '/info surah':
           if (body.length > 12) {
@@ -177,6 +177,7 @@ async function msgHandler (client, message) {
           }
           }
           break
+        /*temporarily Deprecated
         case '/jadwal':
           if(body.length > 8) {
             kotanya = ""
@@ -266,6 +267,7 @@ async function msgHandler (client, message) {
             
           }
           break
+          */
         case '/random ayat':
           if (body.length > 6) {
             const response = await axios.get('https://api.quran.sutanlab.id/surah')
