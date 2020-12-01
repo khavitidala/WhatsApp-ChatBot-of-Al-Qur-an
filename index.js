@@ -3,6 +3,7 @@ const axios = require('axios')
 const moment = require('moment')
 const color = require('./lib/color')
 const serverOption = {
+  sessionId: 'Imperial',
   headless: true,
   qrRefreshS: 20,
   qrTimeout: 0,
@@ -11,10 +12,14 @@ const serverOption = {
   cacheEnabled: false,
   chromiumArgs: [
     '--no-sandbox',
-    '--disable-setuid-sandbox'
+    '--disable-setuid-sandbox',
+    '--aggressive-cache-discard',
+    '--disable-cache',
+    '--disable-application-cache',
+    '--disable-offline-load-stale-cache',
+    '--disk-cache-size=0'
   ]
 }
-
 const opsys = process.platform
 if (opsys === 'win32' || opsys === 'win64') {
   serverOption.executablePath = 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'
@@ -26,7 +31,7 @@ if (opsys === 'win32' || opsys === 'win64') {
 }
 
 const startServer = async () => {
-  create('Imperial', serverOption)
+  create(serverOption)
     .then(client => {
       console.log('[SERVER] Server Started!')
       client.onStateChanged(state => {
